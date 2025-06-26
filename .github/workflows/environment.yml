@@ -1,0 +1,12 @@
+name: Environment
+
+on: push
+
+jobs:
+    first_job:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Print Variable
+              run: echo "${{ secrets.TOKEN_SECRECT }}"
+
