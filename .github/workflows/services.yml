@@ -6,7 +6,20 @@ jobs:
     first_job:
         runs-on: ubuntu-latest
 
-        steps:
+        services:   #es un contenedor de docker  #base de datos, cache y otros
+            redis:   #nombre del contenedor
+                image: redis
+                ports:
+                  - 6379:6379  #localhost: numero_de_puerto
+
+        steps:   #paquetes
+
+            - name: Install redis cli
+              run: apt-get update -y && apt-get install redis-tools -y
+
+            - name: Test redis
+              run: redis-cli -h localhost -p 6379 ping
+        
             - name: Print Variable
               run: echo "${{ secrets.TOKEN_SECRECT }}"
 
@@ -18,4 +31,3 @@ jobs:
               uses: actions/setup-node@v4   #instalar los paquetes de node
               with:
                 node-version: '18'
-
