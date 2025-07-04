@@ -29,7 +29,7 @@ jobs:
               run: npm run test
 
     deploy:
-        if: {{ always()}}   # siempre se ejecutara este job siempre que se cumpla la condicion interna (always = siepre)
+        if: ${{ always()}}   # siempre se ejecutara este job siempre que se cumpla la condicion interna (always = siepre)
                             # otros metotodos son success(), failure(), y otros
         runs-on: ubuntu-latest
         needs: build   #necesita que se ejecute el job build primero y recien se ejecutaria este job de "deploy"
