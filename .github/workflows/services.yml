@@ -1,4 +1,4 @@
-name: Environment
+name: Services
 
 on: push
 
@@ -6,16 +6,26 @@ jobs:
     first_job:
         runs-on: ubuntu-latest
 
-        services:   #es un contenedor de docker  #base de datos, cache y otros
+        services:   #es un contenedor de docker (es una imagen de docker)  #base de datos, cache y otros
+
+            #credentias:    # es por si queremos levantar un archivo docker privado
+            #    username: 
+
+            nginx:
+                image: nginx   # no tiene sentido aqui levantar un nginx pero se puede hacer
+    
             redis:   #nombre del contenedor
                 image: redis
                 ports:
                   - 6379:6379  #localhost: numero_de_puerto
+                  # puede que el contenedor se haya cargado pero internamente el servicio no, entonces se puede hacer un
+                  # ping como en el paso de abajo y hacer un while hasta recibir el pong para corroborar que el servicio
+                  # este funcionando
 
         steps:   #paquetes
 
             - name: Install redis cli
-              run: sudo apt-get update -y && sudo apt-get install redis-tools -y
+              run: sudo apt-get update -y && sudo apt-get install redis-tools -y  # -y es responder yes en la linea de comando
 
             - name: Test redis
               run: redis-cli -h localhost -p 6379 ping

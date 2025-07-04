@@ -13,9 +13,15 @@ jobs:
             #- name: Install manual
             #  run: ape-get get install mysql-server -y   #no es la mejor practica, ya que existen los servicios
 
+            - name: Checkout
+              uses: actions/checkout@v4  #nos situara en nuestro directorio para que en el step mas adelante 
+            
             - name: setup
               #run: apt-get update -y
               uses: actions/setup-node@v4   #instalar los paquetes de node
               with:
                 node-version: '18'
+
+            - name: Instalar dependencias
+              run: npm install  #debemos estar en en el directorio del proyecto para que funcione con checkout
 
